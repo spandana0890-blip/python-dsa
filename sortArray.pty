@@ -1,0 +1,19 @@
+def find_cheapest_price(n, flights, src, dst, k):
+    INF = float('inf')
+
+    cost = [INF] * n
+    cost[src] = 0
+
+    for _ in range(k + 1):
+        new_cost = cost.copy()
+
+        for u, v, price in flights:
+            if cost[u] != INF:
+                new_cost[v] = min(new_cost[v], cost[u] + price)
+
+        cost = new_cost
+
+    if cost[dst] == INF:
+        return -1
+
+    return cost[dst]
